@@ -17,25 +17,33 @@ function createListItem(itemName) {
     );
 }
 
+// This handles the check button
 function toggleCheck(event) {
-    const currentLi = $(event.currentTarget);
-    const shoppingItem = $(currentLi).parentsUntil('ul').find('span.shopping-item');
+    const shoppingItem = $(event).closest('li').find('span.shopping-item');
     const checkedBool = shoppingItem.hasClass('shopping-item__checked');
     shoppingItem.toggleClass('shopping-item__checked',!checkedBool);
 }
 
+//This handles the delete button
+function getRid(event) {
+    $(event).closest('li').remove();
+}
+
 function main() {
     //Handles the form input listener
-    $('#js-shopping-list-form').submit(event => {
+    $('#js-shopping-list-form').submit(function(event) {
         event.preventDefault();
-        const itemName = $(event.currentTarget).find('#shopping-list-entry').val();
+        const itemName = $(this).find('#shopping-list-entry').val();
         createListItem(itemName);
     });
-
-    $('ul.shopping-list').on('click', 'button.shopping-item-toggle', function(event) {
-        toggleCheck(event);
+    //This handles the check button listener
+    $('ul.shopping-list').on('click', 'button.shopping-item-toggle', function() {
+        toggleCheck(this);
     });
-
+    //This handles the delete button listener
+    $('ul.shopping-list').on('click', 'button.shopping-item-delete', function() {
+        getRid(this);
+    });
 }
 
 $(main);

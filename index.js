@@ -36,14 +36,10 @@ function main() {
         const itemName = $(this).find('#shopping-list-entry').val();
         createListItem(itemName);
     });
-    //This handles the check button listener
-    $('ul.shopping-list').on('click', 'button.shopping-item-toggle', function() {
-        toggleCheck(this);
-    });
-    //This handles the delete button listener
-    $('ul.shopping-list').on('click', 'button.shopping-item-delete', function() {
-        getRid(this);
-    });
-}
+    //This handles the check button listener and the delete button listener
+    $('ul.shopping-list')
+        .on('click', 'button.shopping-item-delete', function() { getRid(this); })
+        .on('click', 'button.shopping-item-toggle', function() { toggleCheck(this); });
+}       
 
 $(main);
